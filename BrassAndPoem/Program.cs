@@ -151,11 +151,54 @@ void AddProduct(List<Product> products, List<ProductType> productTypes)
     newProduct.Id = selectionConversion;
 
     products.Add(newProduct);
+
+    Console.WriteLine($"{newProduct.Name} has been added!\n");
 }
 
 void UpdateProduct(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    Console.WriteLine("\nChoose which product to update:\n");
+    for (int i = 0; i < products.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {products[i].Name}");
+    }
+
+    if (int.TryParse(Console.ReadLine(), out int choiceIndex))
+    {
+        Product selectedProduct = products[choiceIndex - 1];
+        Console.WriteLine($"You chose {selectedProduct.Name}.");
+
+        Console.WriteLine("Enter new name: (press Enter again if no change required)");
+        string updatedName = Console.ReadLine();
+        if (!string.IsNullOrEmpty(updatedName))
+        {
+            selectedProduct.Name = updatedName;
+        }
+
+        Console.WriteLine("Enter new price: (press Enter again if no change required)");
+        string newPrice = Console.ReadLine();
+        if (!string.IsNullOrEmpty(newPrice) && decimal.TryParse(newPrice, out decimal updatedPrice))
+        {
+            selectedProduct.Price = updatedPrice;
+        }
+
+        Console.WriteLine("Select new product type: (press Enter if no change required)");
+        for (int i = 0;i < productTypes.Count;i++)
+        {
+            Console.WriteLine($"{i + 1}. {productTypes[i].Title}");
+        }
+        string response = Console.ReadLine();
+        if (!string.IsNullOrEmpty(response) && int.TryParse(response, out int newType))
+        {
+            selectedProduct.Id = productTypes[newType - 1].Id;
+        }
+
+        Console.WriteLine($"{selectedProduct.Name} has been successfully updated!");
+    }
+    else
+    {
+        Console.WriteLine("There was an error updating this product.");
+    }
 }
 
 // don't move or change this!
