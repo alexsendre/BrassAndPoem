@@ -109,7 +109,22 @@ void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
 
 void DeleteProduct(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    Console.WriteLine("\nChoose product to delete:\n");
+    for (int i = 0;i < products.Count;i++)
+    {
+        Console.WriteLine($"{i + 1}. {products[i].Name}");
+    }
+
+    if (int.TryParse(Console.ReadLine(), out int choiceIndex))
+    {
+        string deletedProduct = products[choiceIndex - 1].Name;
+        products.RemoveAt(choiceIndex - 1);
+        Console.WriteLine($"{deletedProduct} successfully deleted!");
+    }
+    else
+    {
+        Console.WriteLine("There was an error deleting your product.");
+    }
 }
 
 void AddProduct(List<Product> products, List<ProductType> productTypes)
