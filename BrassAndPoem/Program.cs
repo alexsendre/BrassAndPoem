@@ -109,12 +109,48 @@ void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
 
 void DeleteProduct(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    Console.WriteLine("\nChoose product to delete:\n");
+    for (int i = 0;i < products.Count;i++)
+    {
+        Console.WriteLine($"{i + 1}. {products[i].Name}");
+    }
+
+    if (int.TryParse(Console.ReadLine(), out int choiceIndex))
+    {
+        string deletedProduct = products[choiceIndex - 1].Name;
+        products.RemoveAt(choiceIndex - 1);
+        Console.WriteLine($"{deletedProduct} successfully deleted!");
+    }
+    else
+    {
+        Console.WriteLine("There was an error deleting your product.");
+    }
 }
 
 void AddProduct(List<Product> products, List<ProductType> productTypes)
 {
-    throw new NotImplementedException();
+    Product newProduct = new Product();
+    Console.WriteLine("\nAdd a new product\n");
+
+    Console.WriteLine("Name of product:");
+    string name = Console.ReadLine();
+    newProduct.Name = name;
+
+    Console.WriteLine("Enter the price:");
+    string price = Console.ReadLine();
+    decimal priceConversion = decimal.Parse(price);
+    newProduct.Price = priceConversion;
+
+    Console.WriteLine("Choose type of product:");
+    for (int i = 0; i < productTypes.Count;i++)
+    {
+        Console.WriteLine($"{i + 1}. {productTypes[i].Title}");
+    }
+    string selection = Console.ReadLine();
+    int selectionConversion = int.Parse(selection);
+    newProduct.Id = selectionConversion;
+
+    products.Add(newProduct);
 }
 
 void UpdateProduct(List<Product> products, List<ProductType> productTypes)
